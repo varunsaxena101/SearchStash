@@ -71,7 +71,7 @@ function renderLoggedOut() {
 
     terms.innerHTML = 'By logging in I agree to the Terms of Service';
     terms.className = 'terms-of-service';
-    terms.href = 'https://searchstash.com/tos.html';
+    terms.href = 'https://www.searchstash.com/tos.html';
     terms.target = '_blank';
 
     div.appendChild(p2);

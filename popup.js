@@ -57,7 +57,7 @@ function renderLoggedOut() {
     const div = document.getElementById('buttons');
     const p = document.createElement('p');
     const p2 = document.createElement('p');
-    const terms = document.createElement('p');
+    const terms = document.createElement('a');
 
     img.src = 'images/logo_128.png';
     img.className = 'logo';
@@ -71,6 +71,8 @@ function renderLoggedOut() {
 
     terms.innerHTML = 'By logging in I agree to the Terms of Service';
     terms.className = 'terms-of-service';
+    terms.href = 'https://stashsearch.com/tos.html';
+    terms.target = '_blank';
 
     div.appendChild(p2);
     div.appendChild(p);

@@ -1,0 +1,11 @@
+h1 {
+    text-align: center;
+    font-family: Roboto;
+    font-size: 45px;
+}
+
+p {
+    font-family: Roboto;
+    margin-left: 50px;
+    margin-right: 50px;
+}

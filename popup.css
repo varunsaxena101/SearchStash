@@ -1,0 +1,115 @@
+ul {
+    list-style-type: none;
+}
+
+#profPic {
+    height: 70px;
+}
+
+body {
+    margin: 0px;
+    width: 200px;
+    height: 250px;
+}
+
+.avatar {
+    height: 50px;
+    border-radius: 50%;
+    display: block;
+    margin: auto;
+    padding: 10px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+}
+
+.logo {
+    display: block;
+    margin: auto;
+    height: 50px;
+    padding: 10px;
+}
+
+p {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.welcome {
+    font-size: 20px;
+}
+
+button {
+    display: block;
+    margin: auto;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+    
+    margin: auto;
+    text-align: center;
+    display: block;
+    width: 60%;
+}
+
+.btn {
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 150px;
+}
+
+.btn-login {
+    background-color: white;
+    color: black;
+    border: 2px solid #e7e7e7;
+}
+
+.btn-login:hover {
+    background-color: #e7e7e7;
+}
+
+#buttons {
+    text-align: center;
+}
+
+.btn-search {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+
+.btn-search:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+div {
+    display: block;
+}
+
+.terms-of-service {
+    font-size: 10px;
+}

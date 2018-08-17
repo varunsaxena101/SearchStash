@@ -1,0 +1,116 @@
+/*------------------------------------------------------------------*/
+/* BASIC SETUP */
+/*------------------------------------------------------------------*/
+
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+html {
+    background-color: #fff;
+    color: #555;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 20px; 
+    text-rendering: optimizeLegibility;
+}
+
+/*------------------------------------------------------------------*/
+/* REUSABLE COMPONENTS */
+/*------------------------------------------------------------------*/
+
+/* .row {
+    max-width: 1140px;
+    margin: 0 auto 0 auto;  
+} */
+
+/*------------------------------------------------------------------*/
+/* OTHER */
+/*------------------------------------------------------------------*/
+
+.highlight { 
+    background-image: linear-gradient(to bottom, 
+    rgba(12,242,150,.5),rgba(12,242,150,.5));
+}
+
+input[type=text] {
+    width: 500px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px 0px 0px 4px;
+    font-size: 16px;
+    background-color: white;
+    /* background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat; */
+    padding: 12px 20px 12px 20px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    float: left;
+}
+
+#search {
+    float: left;
+    width: 5%;
+    padding: 12px;
+    background-color: #ccc;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 0px 4px 4px 0px;
+    border-left: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+#search:hover {
+    background-color: white;
+}
+
+#urlList {
+    margin-top: 50px;
+    padding: 0px;
+}
+
+.li-highlight {
+    background-color: #F5F5F5;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+.li-p {
+    margin: 5px;
+}
+
+li {
+    padding: 10px;
+}
+
+.li-title {
+    font-size: 150%;
+    font-weight: 500;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #3CB371;
+    text-decoration: none;
+}
+
+a:active {
+    color: #3CB371;
+    text-decoration: none;
+}

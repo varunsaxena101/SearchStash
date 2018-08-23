@@ -2,6 +2,14 @@ let searchButton = document.getElementById('search');
 // let textArea = document.getElementById('searchTextArea');
 let textArea = document.getElementById('searchInput');
 
+//If user hits enter it will search
+textArea.addEventListener("keyup", (event) => {
+	event.preventDefault();
+	if (event.keyCode === 13) {
+        searchButton.click();
+    }
+});
+
 searchButton.onclick = function() {
 	const searchText = textArea.value;
 	console.log(searchText);

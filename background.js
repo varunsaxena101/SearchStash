@@ -1,4 +1,5 @@
 // chrome storage sends an empty object if nothing is found
+
 function isEmpty(obj) {
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -63,6 +64,7 @@ chrome.contextMenus.onClicked.addListener(function(clickInfo) {
                 xhttp.send(JSON.stringify(payload));
             }).catch((error) => {
                 console.log(error);
+                alert("You are not logged in!");
             });
         });
     }

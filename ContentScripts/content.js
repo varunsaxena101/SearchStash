@@ -1,4 +1,7 @@
-// document.addEventListener("mouseup", highlight);
+
+
+/*
+document.addEventListener("mouseup", highlight);
 
 chrome.contextMenus.onClicked.addListener(function(clickInfo) {
     if (clickInfo.menuItemId == 'save' && clickInfo.selectionText) {
@@ -22,7 +25,6 @@ function highlight() {
 	}
 }
 
-/*
 function addCSS() {
 	var head = document.getElementsByTagName('head')[0];
 	var style = document.createElement('link');

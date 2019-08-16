@@ -64,7 +64,9 @@ chrome.contextMenus.onClicked.addListener(function(clickInfo) {
                 xhttp.send(JSON.stringify(payload));
             }).catch((error) => {
                 console.log(error);
-                alert("You are not logged in!");
+                chrome.tabs.executeScript({
+                    file: 'ContentScripts/contenttest.js'
+                });
             });
         });
     }

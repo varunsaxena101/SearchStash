@@ -36,7 +36,8 @@ searchButton.onclick = function() {
 	chrome.storage.local.get(['token', 'userID'], function(result) {
 		console.log(result);
 		const params = 'search=' + searchText;
-		const targetURL = 'https://api.searchstash.com/urls?' + params;
+		// const targetURL = 'https://api.searchstash.com/urls?' + params;
+		const targetURL = 'http://localhost:3000/urls?' + params;
 		xhttp.open('GET', targetURL);
 		xhttp.setRequestHeader('Content-Type', 'application/json');
 		xhttp.setRequestHeader('Authorization', 'Bearer ' + result.token);

@@ -19,7 +19,7 @@
     "permissions": ["storage", "declarativeContent", "activeTab", "tabs", "contextMenus", "identity"],
 
     "background": {
-        "scripts": ["background.js"],
+        "scripts": ["getUserInfo.js", "background.js"],
         "persistent": false
     },
 

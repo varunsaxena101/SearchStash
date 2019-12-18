@@ -1,3 +1,8 @@
+/*
+    Retrieves user info from Chrome Storage
+*/
+
+
 // chrome storage sends an empty object if nothing is found
 function isEmpty(obj) {
     for (let key in obj) {

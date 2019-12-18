@@ -1,36 +1,18 @@
-// chrome storage sends an empty object if nothing is found
+/*
+    Background.js listens for stash click in context menu. When stash is clicked,
+    the user's info is retrieved and then stash request is sent to backend
+*/
 
-function isEmpty(obj) {
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-                return false;
-            }
-    }
-    return true;
-}
-
-function getUserInfo() {
-    return new Promise(function(resolve, reject) {
-        chrome.storage.local.get(['givenName', 'userID', 'imgSRC'],
-        function(result) {
-            console.log(result);
-            console.log(isEmpty(result));
-            if (!isEmpty(result)) {
-                resolve(result);
-            } else {
-                reject(Error('User is not logged in'));
-            }
-        });
+/**
+ * creates context menu item when extension is first installed
+ */
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.contextMenus.create({
+      "id": "save",
+      "title": "Stash It!",
+      "contexts": ["selection"]
     });
-}
-
-const contextMenuItem = {
-    'id': 'save',
-    'title': 'Stash It!',
-    'contexts': ['selection']
-};
-
-chrome.contextMenus.create(contextMenuItem);
+  });
 
 chrome.contextMenus.onClicked.addListener(function(clickInfo) {
     if (clickInfo.menuItemId == 'save' && clickInfo.selectionText) {
@@ -60,7 +42,6 @@ chrome.contextMenus.onClicked.addListener(function(clickInfo) {
 
                 xhttp.open('POST', 'https://api.searchstash.com/urls');
                 xhttp.setRequestHeader('Content-Type', 'application/json');
-                // xhttp.send(new URLSearchParams.append('url', url));
                 xhttp.send(JSON.stringify(payload));
             }).catch((error) => {
                 console.log(error);
@@ -69,21 +50,3 @@ chrome.contextMenus.onClicked.addListener(function(clickInfo) {
         });
     }
 });
-
-/*
-function highlight() {
-    const selection = document.getSelection();
-    if (selection.rangeCount == 0) {
-        alert('There is no selection');
-    } else {
-        const range = selection.getRangeAt(0);
-        const span = document.createElement('span');
-        span.className = 'highlighted-text';
-        span.style.backgroundColor = 'yellow';
-        span.style.cursor = 'pointer';
-        span.innerHTML = range.toString();
-        range.deleteContents();
-        range.insertNode(span);
-    }
-}
-*/

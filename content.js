@@ -1,4 +1,7 @@
-// document.addEventListener("mouseup", highlight);
+/**
+ *  This page currently adds no functionality and does not work properly.
+ *  It will eventually be used to highlight the selected text on a webpage.
+ */
 
 chrome.contextMenus.onClicked.addListener(function(clickInfo) {
     if (clickInfo.menuItemId == 'save' && clickInfo.selectionText) {
@@ -21,14 +24,3 @@ function highlight() {
 		// addCSS();
 	}
 }
-
-/*
-function addCSS() {
-	var head = document.getElementsByTagName('head')[0];
-	var style = document.createElement('link');
-	style.rel = 'stylesheet';
-	style.href = 'test.css';
-	style.type = 'text/css';
-	head.appendChild(style);
-}
-*/

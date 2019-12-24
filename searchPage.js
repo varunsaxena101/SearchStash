@@ -56,6 +56,8 @@ function populateList(list, searchText) {
 		const li = document.createElement('li');
 		const a = document.createElement('a');
 		const p = document.createElement('p');
+		const del = document.createElement('a');
+
 		a.setAttribute('href', list[i].addrURL);
 		a.setAttribute('target', '_blank');
 		a.innerHTML = list[i].title;
@@ -64,11 +66,15 @@ function populateList(list, searchText) {
 		p.innerHTML = highlightWords(list[i].highlight, searchText);
 		p.className = 'li-p';
 
+		del.innerHTML = 'Delete'
+		del.onclick = function() {deleteStash(list[i].addrURL)};
+
 		if (i % 2 != 0) {
 			li.className = 'li-highlight';
 		}
 
 		li.appendChild(a);
+		li.appendChild(del);
 		li.appendChild(p);
 		ul.appendChild(li);
 	}
@@ -143,6 +149,38 @@ function loadRecentStashes() {
 		// const targetURL = 'https://api.searchstash.com/urls?' + params;
 		const targetURL = 'http://localhost:3000/get-recent-stashes?';
 		xhttp.open('GET', targetURL);
+		xhttp.setRequestHeader('Content-Type', 'application/json');
+		xhttp.setRequestHeader('Authorization', 'Bearer ' + result.token);
+		xhttp.setRequestHeader('X-id', result.userID);
+		xhttp.send();
+	});
+}
+
+function deleteStash(addrURL) {
+	const xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == XMLHttpRequest.DONE) {
+			console.log(xhttp.responseText);
+			const response = JSON.parse(xhttp.responseText);
+			console.log(response);
+			if (response.error) {
+				// document.getElementById('urlList').innerHTML =
+                //   'Error - Please sign in to search!';
+				// alert('You are not logged in!');
+				console.log(response.error)
+			} else {
+				console.log("Deleted!")
+			}
+		}
+	};
+
+	chrome.storage.local.get(['token', 'userID'], function(result) {
+		console.log(result);
+		const params = 'addrURL=' + addrURL;
+		// const targetURL = 'https://api.searchstash.com/urls?' + params;
+		const targetURL = 'http://localhost:3000/delete-stash?' + params;
+		xhttp.open('DELETE', targetURL);
 		xhttp.setRequestHeader('Content-Type', 'application/json');
 		xhttp.setRequestHeader('Authorization', 'Bearer ' + result.token);
 		xhttp.setRequestHeader('X-id', result.userID);

@@ -74,7 +74,7 @@ function populateList(list, searchText) {
 
 		del.innerHTML = 'Delete'
 		del.className = 'li-delete'
-		del.onclick = function() {deleteStash(list[i].addrURL)};
+		del.onclick = function() {deleteStash(list[i]._id)};
 
 		if (i % 2 != 0) {
 			li.className = 'li-highlight';
@@ -163,7 +163,7 @@ function loadRecentStashes() {
 	});
 }
 
-function deleteStash(addrURL) {
+function deleteStash(docID) {
 	const xhttp = new XMLHttpRequest();
 
 	xhttp.onreadystatechange = function() {
@@ -178,7 +178,7 @@ function deleteStash(addrURL) {
 
 	chrome.storage.local.get(['token', 'userID'], function(result) {
 		console.log(result);
-		const params = 'addrURL=' + addrURL;
+		const params = 'docID=' + docID;
 		// const targetURL = 'https://api.searchstash.com/urls?' + params;
 		const targetURL = 'http://localhost:3000/delete-stash?' + params;
 		xhttp.open('DELETE', targetURL);

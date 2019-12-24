@@ -13,6 +13,12 @@ textArea.addEventListener("keyup", (event) => {
 searchButton.onclick = function() {
 	const searchText = textArea.value;
 	console.log(searchText);
+
+	if (searchText == "") {
+		loadRecentStashes();
+		return;
+	}
+
 	const xhttp = new XMLHttpRequest();
 
 	xhttp.onreadystatechange = function() {
@@ -162,16 +168,10 @@ function deleteStash(addrURL) {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == XMLHttpRequest.DONE) {
 			console.log(xhttp.responseText);
-			const response = JSON.parse(xhttp.responseText);
+			const response = xhttp.responseText;
 			console.log(response);
-			if (response.error) {
-				// document.getElementById('urlList').innerHTML =
-                //   'Error - Please sign in to search!';
-				// alert('You are not logged in!');
-				console.log(response.error)
-			} else {
-				console.log("Deleted!")
-			}
+
+			searchButton.click();
 		}
 	};
 
@@ -188,4 +188,4 @@ function deleteStash(addrURL) {
 	});
 }
 
-loadRecentStashes()
+searchButton.click()

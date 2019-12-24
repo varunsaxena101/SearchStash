@@ -73,6 +73,7 @@ function populateList(list, searchText) {
 		p.className = 'li-p';
 
 		del.innerHTML = 'Delete'
+		del.className = 'li-delete'
 		del.onclick = function() {deleteStash(list[i].addrURL)};
 
 		if (i % 2 != 0) {

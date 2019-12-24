@@ -116,3 +116,38 @@ function noResults() {
 	li.appendChild(p);
 	ul.appendChild(li);
 }
+
+function loadRecentStashes() {
+	const xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == XMLHttpRequest.DONE) {
+			console.log(xhttp.responseText);
+			const response = JSON.parse(xhttp.responseText);
+			console.log(response);
+			console.log(typeof response);
+			if (response.error) {
+				document.getElementById('urlList').innerHTML =
+                  'Error - Please sign in to search!';
+				alert('You are not logged in!');
+			} else if (response.length != 0) {
+				populateList(response, "");
+			} else {
+				noResults();
+			}
+		}
+	};
+
+	chrome.storage.local.get(['token', 'userID'], function(result) {
+		console.log(result);
+		// const targetURL = 'https://api.searchstash.com/urls?' + params;
+		const targetURL = 'http://localhost:3000/get-recent-stashes?';
+		xhttp.open('GET', targetURL);
+		xhttp.setRequestHeader('Content-Type', 'application/json');
+		xhttp.setRequestHeader('Authorization', 'Bearer ' + result.token);
+		xhttp.setRequestHeader('X-id', result.userID);
+		xhttp.send();
+	});
+}
+
+loadRecentStashes()

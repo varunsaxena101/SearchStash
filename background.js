@@ -12,6 +12,8 @@ chrome.runtime.onInstalled.addListener(function() {
       "title": "Stash It!",
       "contexts": ["selection"]
     });
+
+    chrome.storage.local.set({ 'attemptedLogin': false });
   });
 
 chrome.contextMenus.onClicked.addListener(function(clickInfo) {

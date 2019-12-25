@@ -7,8 +7,10 @@ const loginButton = document.createElement('button');
 loginButton.innerHTML = 'Log in';
 loginButton.className = 'btn btn-login';
 loginButton.addEventListener('click', function() {
+    chrome.storage.local.set({ 'attemptedLogin': true });
     loginUser().then((userInfo) => {
         renderLoggedIn(userInfo);
+        chrome.storage.local.set({ 'attemptedLogin': false });
     }, function(error) {
         console.log(error);
     });
@@ -82,15 +84,31 @@ function renderLoggedOut() {
     loggedIn = false;
 }
 
-getUserInfo().then(function(result) {
-    console.log(result);
-    loggedIn = true;
-    result = [result.givenName, result.userID, result.imgSRC];
-    console.log(result);
-    renderLoggedIn(result);
-}).catch(function(error) {
-    console.log(error);
-    loggedIn = false;
-    renderLoggedOut();
-});
+  
+function renderPage() {
+    getUserInfo().then(function(result) {
+        console.log(result);
+        loggedIn = true;
+        result = [result.givenName, result.userID, result.imgSRC];
+        console.log(result);
+        renderLoggedIn(result);
+    }).catch(function(error) {
+        console.log(error);
+        loggedIn = false;
+        renderLoggedOut();
+    });
+}
+
+renderPage()
+
+window.onload = function() {
+    chrome.storage.local.get('attemptedLogin', function (result) {
+        console.log(result.attemptedLogin);
+        if (result.attemptedLogin) {
+            loginButton.click()
+        }
+    });
+}
+
+
 

@@ -6,7 +6,6 @@
     "oauth2": {
         "client_id": "391631790343-du914gblsms1labu3lefbm4f93olijfq.apps.googleusercontent.com",
         "scopes":[
-            "https://www.googleapis.com/auth/contacts.readonly",
             "profile",
             "https://www.googleapis.com/auth/plus.login"
         ]

@@ -66,7 +66,7 @@ function populateList(list, searchText) {
 
 		a.setAttribute('href', list[i].addrURL);
 		a.setAttribute('target', '_blank');
-		a.innerHTML = list[i].title;
+		a.innerHTML = highlightWords(list[i].title, searchText);
 		a.className = 'li-title';
 
 		p.innerHTML = highlightWords(list[i].highlight, searchText);
@@ -91,26 +91,11 @@ function populateList(list, searchText) {
 }
 
 function highlightWords(str, search) {
-	let i = str.search(new RegExp(search, 'i'));
-	if (i != -1) {
-		str = str.substring(0, i) +
-        '<span class=\'highlight\'>' +
-		str.substring(i, i + search.length) + '</span>' +
-		str.substring(i + search.length);
-	} else {
-		let strArr = search.split(' ');
-		for (let a = 0; a < strArr.length; a++) {
-			let i = str.search(new RegExp(strArr[a], 'i'));
-			if (i != -1) {
-				str = str.substring(0, i) +
-				'<span class=\'highlight\'>' +
-				str.substring(i, i + strArr[a].length) + '</span>' +
-				str.substring(i + strArr[a].length);
-			}
-		}
-	}
-
-	return str;
+	let pattern = new RegExp(search, 'ig');
+	let highlighted = str.replace(pattern, function(x) {
+		return '<span class=\'highlight\'>' + x + '</span>';
+	});
+	return highlighted;
 }
 
 function noResults() {

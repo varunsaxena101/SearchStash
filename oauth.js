@@ -38,7 +38,7 @@ function loginUser() {
                     });
                 })
                 .catch ((err) => {
-                    alert('catch block called')
+                    // alert('catch block called')
                     chrome.identity.removeCachedAuthToken(
                         {'token': userAuthToken}, function() {
                         userAuthToken = undefined;

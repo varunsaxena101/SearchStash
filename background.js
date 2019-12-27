@@ -14,6 +14,7 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 
     chrome.storage.local.set({ 'attemptedLogin': false });
+    chrome.storage.local.set({'isLoggedIn': false});
   });
 
 chrome.contextMenus.onClicked.addListener(function(clickInfo) {

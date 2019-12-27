@@ -1,19 +1,8 @@
-window.name = 'myPopup';
-let loggedIn = false;
-console.log(window.name);
-// import {getUserInfo} from 'module';
-
 const loginButton = document.createElement('button');
 loginButton.innerHTML = 'Log in';
 loginButton.className = 'btn btn-login';
 loginButton.addEventListener('click', function() {
-    chrome.storage.local.set({ 'attemptedLogin': true });
-    loginUser().then((userInfo) => {
-        renderLoggedIn(userInfo);
-        chrome.storage.local.set({ 'attemptedLogin': false });
-    }, function(error) {
-        console.log(error);
-    });
+    chrome.tabs.create({url: 'loginPage.html'});
 });
 
 const logoutButton = document.createElement('button');
@@ -51,7 +40,6 @@ function renderLoggedIn(userInfo) {
     div.appendChild(searchButton);
     div.appendChild(logoutButton);
 
-    loggedIn = true;
 }
 
 function renderLoggedOut() {
@@ -81,33 +69,22 @@ function renderLoggedOut() {
     div.appendChild(loginButton);
     div.appendChild(terms);
 
-    loggedIn = false;
 }
 
-  
 function renderPage() {
     getUserInfo().then(function(result) {
         console.log(result);
-        loggedIn = true;
         result = [result.givenName, result.userID, result.imgSRC];
         console.log(result);
         renderLoggedIn(result);
     }).catch(function(error) {
         console.log(error);
-        loggedIn = false;
         renderLoggedOut();
     });
 }
 
-renderPage()
-
 window.onload = function() {
-    chrome.storage.local.get('attemptedLogin', function (result) {
-        console.log(result.attemptedLogin);
-        if (result.attemptedLogin) {
-            loginButton.click()
-        }
-    });
+    this.renderPage();
 }
 
 

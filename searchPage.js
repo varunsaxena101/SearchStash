@@ -31,6 +31,7 @@ searchButton.onclick = function() {
 				document.getElementById('urlList').innerHTML =
                   'Error - Please sign in to search!';
 				alert('You are not logged in!');
+				window.location.reload(false)
 			} else if (response.length != 0) {
 				populateList(response, searchText);
 			} else {
@@ -175,3 +176,15 @@ function deleteStash(docID) {
 }
 
 searchButton.click()
+
+window.onload = function() {
+    getUserInfo().then(function(result) {
+        console.log(result);
+        result = [result.givenName, result.userID, result.imgSRC];
+        console.log(result);
+    }).catch(function(error) {
+        chrome.tabs.getCurrent(function (tab) {
+            chrome.tabs.update(tab.id, {url: 'loginPage.html'});
+        });
+    });
+}

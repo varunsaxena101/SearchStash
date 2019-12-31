@@ -1,4 +1,5 @@
 let userAuthToken;
+let retryLogin = true;
 
 function loginUser() {
     return new Promise(function(resolve, reject) {
@@ -28,6 +29,8 @@ function loginUser() {
                             {'token': userAuthToken}, function() {
                             userAuthToken = undefined;
                         });
+                    }).catch((err) => {
+                        console.log(err);
                     });
                 })
                 .then(() => {
@@ -38,12 +41,17 @@ function loginUser() {
                     });
                 })
                 .catch ((err) => {
-                    // alert('catch block called')
                     chrome.identity.removeCachedAuthToken(
                         {'token': userAuthToken}, function() {
                         userAuthToken = undefined;
                     });
-                    reject(err);
+
+                    if (retryLogin) {
+                        retryLogin = false;
+                        loginUser()
+                    } else {
+                        reject(err);
+                    }
                 });
         });
     });

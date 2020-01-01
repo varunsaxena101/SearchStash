@@ -3,13 +3,15 @@ const loginButton = document.getElementsByClassName('btn-login')[0];
 const p = document.getElementById('status');
 
 loginButton.addEventListener('click', function() {
-    // alert('hello');
-    loginUser().then((userInfo) => {
-        console.log(userInfo);
-        alert('hello');
-        chrome.tabs.getCurrent(function (tab) {
-            chrome.tabs.update(tab.id, {url: 'searchPage.html'});
-        });
+    loginUser().then((result) => {
+        if (result === true) {
+            chrome.tabs.getCurrent(function (tab) {
+                chrome.tabs.update(tab.id, {url: 'searchPage.html'});
+            });
+        } else {
+            alert('failed to login, please try again!!');
+            console.log('failed to login user');
+        }
     }, function(error) {
         console.log(error);
     });

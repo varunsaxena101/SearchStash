@@ -1,56 +1,62 @@
 let userAuthToken;
 let retryLogin = true;
 
-function loginUser() {
-    return new Promise(function(resolve, reject) {
+function getAuthtoken() {
+	return new Promise(function(resolve, reject) {
         chrome.identity.getAuthToken({interactive: true}, function(token) {
+        	if ( token ) {
+        		console.log(token);
+                userAuthToken = token;
+                return resolve( token );
+            }
+            return reject( 'FAIL_GET_G_AUTH_TOKEN' );
+        });
+	});
+}
+
+function removeCachedAuthToken( token ) {
+	return new Promise(function(resolve) {
+        chrome.identity.removeCachedAuthToken(
+            {token: token}, function() {
+                userAuthToken = undefined;
+                console.log('cached auth token removed.')
+                resolve(true);
+            });
+	});
+}
+
+async function loginUser() {
+    let retryCount = 3;
+    let token;
+
+    while ( retryCount-- !== 0) {
+        try {
+            token = await getAuthtoken();
             console.log(token);
-            userAuthToken = token;
-
-            let init = {
-                method: 'GET',
-                async: true,
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json'
-                }
-            };
-
-            getServerToken(userAuthToken)
-                .then(function (userInfo) {
-
-                    fetch(
-                    'https://accounts.google.com/o/oauth2/revoke?token=' + userAuthToken,
-                    init)
-                    .then((response) => response.json())
-                    .then(function(data) {
-                        console.log(data);
-                        chrome.identity.removeCachedAuthToken(
-                            {'token': userAuthToken}, function() {
-                            userAuthToken = undefined;
-                        });
-                    }).catch((err) => {
-                        console.log(err);
-                    });
-                })
-                .then(() => {
-                    chrome.storage.local.get(['givenName',
-                    'userID', 'imgSRC'], function(result) {
-                        console.log(result);
-                        resolve([result.givenName, result.userID, result.imgSRC]);
-                    });
-                })
-                .catch ((err) => {
-                    if (retryLogin) {
-                        retryLogin = false;
-                        chrome.identity.removeCachedAuthToken(
-                            {'token': userAuthToken}, loginUser);
-                    } else {
-                        reject(err);
+            const userInfo = await getServerToken(token);
+            console.log(userInfo);
+            const fetchResp = await fetch(
+                'https://accounts.google.com/o/oauth2/revoke?token=' + token,
+                {
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
                     }
                 });
-        });
-    });
+    
+            console.log(fetchResp);
+            return true;
+        }
+        catch(err) {
+            console.log(err);
+            if ( err === 'FAIL_GET_USER_INFO' ) {
+                const removed = await removeCachedAuthToken( token );
+                console.log(removed);
+            }
+        }
+    }
+
+    return false;
 }
 
 // gets a SearchStash server access token and stores in chrome.storage
@@ -74,7 +80,7 @@ function getServerToken(oauthToken) {
                     });
                     resolve(response.userInfo);
                 } else {
-                    reject(new Error('There was no userInfo'));
+                    reject('FAIL_GET_USER_INFO');
                 }
                 
             }

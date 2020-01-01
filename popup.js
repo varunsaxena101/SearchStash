@@ -75,7 +75,6 @@ function renderPage() {
     getUserInfo().then(function(result) {
         console.log(result);
         result = [result.givenName, result.userID, result.imgSRC];
-        console.log(result);
         renderLoggedIn(result);
     }).catch(function(error) {
         console.log(error);

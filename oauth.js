@@ -41,14 +41,10 @@ function loginUser() {
                     });
                 })
                 .catch ((err) => {
-                    chrome.identity.removeCachedAuthToken(
-                        {'token': userAuthToken}, function() {
-                        userAuthToken = undefined;
-                    });
-
                     if (retryLogin) {
                         retryLogin = false;
-                        loginUser()
+                        chrome.identity.removeCachedAuthToken(
+                            {'token': userAuthToken}, loginUser);
                     } else {
                         reject(err);
                     }

@@ -5,6 +5,8 @@ const p = document.getElementById('status');
 loginButton.addEventListener('click', function() {
     // alert('hello');
     loginUser().then((userInfo) => {
+        console.log(userInfo);
+        alert('hello');
         chrome.tabs.getCurrent(function (tab) {
             chrome.tabs.update(tab.id, {url: 'searchPage.html'});
         });
@@ -13,7 +15,7 @@ loginButton.addEventListener('click', function() {
     });
 });
 
-window.onload = function() {
+function checkLogin() {
     getUserInfo().then(function(result) {
         console.log(result);
         result = [result.givenName, result.userID, result.imgSRC];
@@ -25,3 +27,5 @@ window.onload = function() {
         console.log('user is not logged in.');
     });
 }
+
+window.onload = checkLogin

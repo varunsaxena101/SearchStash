@@ -12,8 +12,9 @@ loginButton.addEventListener('click', function() {
             alert('failed to login, please try again!!');
             console.log('failed to login user');
         }
-    }, function(error) {
-        console.log(error);
+    })
+    .catch((err) => {
+        console.log(err)
     });
 });
 

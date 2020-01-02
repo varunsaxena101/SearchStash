@@ -13,8 +13,10 @@ logoutButton.addEventListener('click', function() {
         console.log(result);
         deleteServerToken(result.token);
     });
-    chrome.storage.local.remove(['givenName', 'userID', 'imgSRC', 'token']);
-    renderLoggedOut();
+    chrome.storage.local.remove(['givenName', 'userID', 'imgSRC', 'token'], function(param) {
+        console.log(param);
+        renderLoggedOut();
+    });
 });
 
 function renderLoggedIn(userInfo) {

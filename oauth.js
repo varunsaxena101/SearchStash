@@ -1,12 +1,8 @@
-let userAuthToken;
-let retryLogin = true;
-
 function getAuthtoken() {
 	return new Promise(function(resolve, reject) {
         chrome.identity.getAuthToken({interactive: true}, function(token) {
         	if ( token ) {
         		console.log(token);
-                userAuthToken = token;
                 return resolve( token );
             }
             return reject( 'FAIL_GET_G_AUTH_TOKEN' );
@@ -18,7 +14,6 @@ function removeCachedAuthToken( token ) {
 	return new Promise(function(resolve) {
         chrome.identity.removeCachedAuthToken(
             {token: token}, function() {
-                userAuthToken = undefined;
                 console.log('cached auth token removed.')
                 resolve(true);
             });

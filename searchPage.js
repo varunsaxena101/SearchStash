@@ -1,5 +1,4 @@
 let searchButton = document.getElementById('search');
-// let textArea = document.getElementById('searchTextArea');
 let textArea = document.getElementById('searchInput');
 
 //If user hits enter it will search

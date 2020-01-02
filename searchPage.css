@@ -129,3 +129,11 @@ a:active {
     color: #3CB371;
     text-decoration: none;
 }
+
+.title {
+    font-size: 60px;
+}
+
+#img {
+    height: 50px;
+}

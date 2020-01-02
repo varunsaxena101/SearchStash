@@ -42,8 +42,8 @@ searchButton.onclick = function() {
 	chrome.storage.local.get(['token', 'userID'], function(result) {
 		console.log(result);
 		const params = 'search=' + searchText;
-		// const targetURL = 'https://api.searchstash.com/urls?' + params;
-		const targetURL = 'http://localhost:3000/urls?' + params;
+		// const targetURL = 'https://api.searchstash.com/search?' + params;
+		const targetURL = 'http://localhost:3000/search?' + params;
 		xhttp.open('GET', targetURL);
 		xhttp.setRequestHeader('Content-Type', 'application/json');
 		xhttp.setRequestHeader('Authorization', 'Bearer ' + result.token);
@@ -138,7 +138,6 @@ function loadRecentStashes() {
 
 	chrome.storage.local.get(['token', 'userID'], function(result) {
 		console.log(result);
-		// const targetURL = 'https://api.searchstash.com/urls?' + params;
 		const targetURL = 'http://localhost:3000/get-recent-stashes?';
 		xhttp.open('GET', targetURL);
 		xhttp.setRequestHeader('Content-Type', 'application/json');
@@ -164,7 +163,6 @@ function deleteStash(docID) {
 	chrome.storage.local.get(['token', 'userID'], function(result) {
 		console.log(result);
 		const params = 'docID=' + docID;
-		// const targetURL = 'https://api.searchstash.com/urls?' + params;
 		const targetURL = 'http://localhost:3000/delete-stash?' + params;
 		xhttp.open('DELETE', targetURL);
 		xhttp.setRequestHeader('Content-Type', 'application/json');

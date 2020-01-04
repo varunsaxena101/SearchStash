@@ -82,8 +82,7 @@ function getServerToken(oauthToken) {
         };
 
         const params = '?oauthToken=' + oauthToken;
-        // const targetURL = 'https://api.searchstash.com/create-token' + params;
-        const targetURL = 'http://localhost:3000/create-token' + params;
+        const targetURL = 'https://api.searchstash.com/create-token' + params;
         xhttp.open('GET', targetURL);
         xhttp.setRequestHeader('Content-Type', 'application/json');
         xhttp.send();
@@ -108,8 +107,7 @@ function deleteServerToken(token) {
 		}
 	};
 
-    // const targetURL = 'https://api.searchstash.com/delete-token';
-    const targetURL = 'http://localhost:3000/delete-token';
+    const targetURL = 'https://api.searchstash.com/delete-token';
 	xhttp.open('DELETE', targetURL);
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.setRequestHeader('Authorization', 'Bearer ' + token);

@@ -40,8 +40,7 @@ chrome.contextMenus.onClicked.addListener(function(clickInfo) {
                     }
                 };
 
-                // xhttp.open('POST', 'https://api.searchstash.com/add-stash');
-                xhttp.open('POST', 'http://localhost:3000/add-stash');
+                xhttp.open('POST', 'https://api.searchstash.com/add-stash');
                 xhttp.setRequestHeader('Content-Type', 'application/json');
                 xhttp.send(JSON.stringify(payload));
             }).catch((error) => {
